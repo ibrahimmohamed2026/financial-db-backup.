@@ -1,0 +1,100 @@
+name: Inspect financial backup (metadata only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out private backup repository
+        uses: actions/checkout@v4
+
+      - name: Inspect ZIP safely without printing financial records
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, zipfile, tempfile, sqlite3
+          from pathlib import Path
+
+          archive = Path("financial_system_manual_20261105_143000.zip")
+          if not archive.is_file():
+              raise SystemExit("ERROR: expected ZIP file was not found.")
+
+          print("ARCHIVE:", archive.name)
+          print("SIZE_BYTES:", archive.stat().st_size)
+
+          with zipfile.ZipFile(archive) as z:
+              bad = z.testzip()
+              if bad:
+                  raise SystemExit("ERROR: ZIP integrity check failed.")
+              infos = z.infolist()
+              print("FILE_COUNT:", len(infos))
+              total = sum(i.file_size for i in infos)
+              print("UNCOMPRESSED_TOTAL_BYTES:", total)
+              if len(infos) > 5000 or total > 2_000_000_000:
+                  raise SystemExit("STOP: archive exceeds safe inspection limits.")
+
+              for i in infos:
+                  print("FILE:", i.filename, "| bytes:", i.file_size,
+                        "| encrypted:", bool(i.flag_bits & 1))
+
+              db_infos = [i for i in infos
+                          if Path(i.filename).suffix.lower() in
+                          {".db", ".sqlite", ".sqlite3"}]
+              if not db_infos:
+                  print("SQLITE_DATABASES: none detected by extension")
+              for info in db_infos:
+                  if info.flag_bits & 1:
+                      print("SQLITE:", info.filename, "| encrypted ZIP member; skipped")
+                      continue
+                  if info.file_size > 1_000_000_000:
+                      print("SQLITE:", info.filename, "| too large; skipped")
+                      continue
+                  raw = z.read(info)
+                  with tempfile.NamedTemporaryFile(suffix=".sqlite") as tmp:
+                      tmp.write(raw)
+                      tmp.flush()
+                      try:
+                          con = sqlite3.connect(f"file:{tmp.name}?mode=ro", uri=True)
+                          tables = con.execute(
+                              "SELECT name, sql FROM sqlite_master "
+                              "WHERE type='table' AND name NOT LIKE 'sqlite_%' "
+                              "ORDER BY name"
+                          ).fetchall()
+                          print("SQLITE_DATABASE:", info.filename)
+                          print("TABLE_COUNT:", len(tables))
+                          for name, ddl in tables:
+                              cols = []
+                              if ddl:
+                                  try:
+                                      cols = [r[1] for r in con.execute(
+                                          f'PRAGMA table_info("{name.replace(chr(34), chr(34)*2)}")'
+                                      )]
+                                  except Exception:
+                                      pass
+                              print("TABLE:", name, "| COLUMNS:", ", ".join(cols))
+                          con.close()
+                      except sqlite3.DatabaseError as e:
+                          print("SQLITE_READ_ERROR:", info.filename, "|", str(e)[:160])
+
+              sql_infos = [i for i in infos if Path(i.filename).suffix.lower() in
+                           {".sql", ".dump", ".pgsql"}]
+              for info in sql_infos:
+                  if info.flag_bits & 1:
+                      print("SQL_DUMP:", info.filename, "| encrypted; skipped")
+                      continue
+                  # Only report structural statement counts; never print SQL contents.
+                  data = z.read(info)
+                  text = data.decode("utf-8", errors="ignore")
+                  count = sum(1 for line in text.splitlines()
+                              if line.lstrip().upper().startswith("CREATE TABLE"))
+                  print("SQL_DUMP:", info.filename, "| bytes:", info.file_size,
+                        "| CREATE_TABLE_STATEMENTS:", count)
+
+          print("INSPECTION_COMPLETE: no financial row data was printed.")
+          PY
