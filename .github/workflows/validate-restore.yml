@@ -32,6 +32,15 @@ jobs:
                       print("MANIFEST_APP_MATCH:", manifest.get("app") == "financial_system")
                       print("MANIFEST_FORMAT:", manifest.get("format"))
                       print("MANIFEST_TABLE_COUNT:", len(manifest.get("tables") or {}))
+                  print("BACKUP_TABLES_AND_ROW_COUNTS:")
+                  for table_name, row_count in sorted((manifest.get("tables") or {}).items()):
+                      print(f"  {table_name}: {row_count}")
+                  print("JSONL_FIELD_NAMES_ONLY:")
+                  for entry in sorted(n for n in names if n.startswith("database/") and n.endswith(".jsonl")):
+                      with z.open(entry) as stream:
+                          first = stream.readline()
+                      fields = sorted(json.loads(first).keys()) if first.strip() else []
+                      print(f"  {entry.removeprefix('database/').removesuffix('.jsonl')}: {', '.join(fields)}")
                   except Exception:
                       raise SystemExit("STOP: manifest exists but is not valid JSON")
 
