@@ -1,0 +1,91 @@
+name: Validate backup for full restore (read only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out private backup repository
+        uses: actions/checkout@v4
+
+      - name: Validate restore format and key relationships without exposing data
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, zipfile
+          from pathlib import Path
+          from collections import Counter
+
+          archive = Path("financial_system_manual_20261105_143000.zip")
+          with zipfile.ZipFile(archive) as z:
+              names = set(z.namelist())
+              print("HAS_MANIFEST:", "manifest.json" in names)
+              if "manifest.json" in names:
+                  try:
+                      manifest = json.loads(z.read("manifest.json"))
+                      print("MANIFEST_APP_MATCH:", manifest.get("app") == "financial_system")
+                      print("MANIFEST_FORMAT:", manifest.get("format"))
+                      print("MANIFEST_TABLE_COUNT:", len(manifest.get("tables") or {}))
+                  except Exception:
+                      raise SystemExit("STOP: manifest exists but is not valid JSON")
+
+              def rows(path):
+                  try:
+                      with z.open(path) as f:
+                          for line in f:
+                              if line.strip():
+                                  yield json.loads(line)
+                  except KeyError:
+                      return
+
+              accounts = list(rows("database/ChartOfAccounts.jsonl"))
+              classes = list(rows("database/AccountClassifications.jsonl"))
+              entries = list(rows("database/JournalEntries.jsonl"))
+              details = list(rows("database/JournalEntryDetails.jsonl"))
+
+              codes = [str(r.get("AccountCode") or "").strip() for r in accounts]
+              duplicate_codes = sum(n - 1 for n in Counter(c for c in codes if c).values() if n > 1)
+              blank_codes = sum(not c for c in codes)
+              class_ids = {r.get("ClassificationId") for r in classes}
+              account_class_orphans = sum(r.get("ClassificationId") not in class_ids for r in accounts)
+              account_ids = {r.get("AccountId") for r in accounts}
+              parent_orphans = sum(r.get("ParentAccountId") is not None and r.get("ParentAccountId") not in account_ids for r in accounts)
+              detail_account_orphans = sum(r.get("AccountId") not in account_ids for r in details)
+              entry_ids = {r.get("JournalEntryId") for r in entries}
+              detail_entry_orphans = sum(r.get("JournalEntryId") not in entry_ids for r in details)
+
+              print("ACCOUNT_ROWS:", len(accounts))
+              print("DUPLICATE_ACCOUNT_CODE_COUNT:", duplicate_codes)
+              print("BLANK_ACCOUNT_CODE_COUNT:", blank_codes)
+              print("CLASSIFICATION_ROWS:", len(classes))
+              print("ACCOUNT_CLASSIFICATION_ORPHANS:", account_class_orphans)
+              print("ACCOUNT_PARENT_ORPHANS:", parent_orphans)
+              print("JOURNAL_ENTRY_ROWS:", len(entries))
+              print("JOURNAL_DETAIL_ROWS:", len(details))
+              print("JOURNAL_DETAIL_ACCOUNT_ORPHANS:", detail_account_orphans)
+              print("JOURNAL_DETAIL_ENTRY_ORPHANS:", detail_entry_orphans)
+
+              required = [
+                  "database/AccountClassifications.jsonl",
+                  "database/ChartOfAccounts.jsonl",
+                  "database/Companies.jsonl",
+                  "database/FiscalYears.jsonl",
+                  "database/Projects.jsonl",
+                  "database/Users.jsonl",
+                  "database/Roles.jsonl",
+                  "database/Permissions.jsonl",
+                  "database/RolePermissions.jsonl",
+                  "database/UserRoles.jsonl",
+                  "database/JournalEntries.jsonl",
+                  "database/JournalEntryDetails.jsonl",
+              ]
+              print("MISSING_CORE_DATA_FILES:", sum(p not in names for p in required))
+              print("CORE_DATA_FILES_PRESENT:", sum(p in names for p in required), "/", len(required))
+              print("READ_ONLY_VALIDATION_COMPLETE: no database connection or writes were performed.")
+          PY
