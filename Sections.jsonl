@@ -1,0 +1,7 @@
+{"SectionId": 1, "Code": "REPORTS", "NameEn": "Reports", "NameAr": "التقارير", "SortOrder": 2, "IsActive": true}
+{"SectionId": 2, "Code": "ACCOUNTING", "NameEn": "Accounting", "NameAr": "الحسابات", "SortOrder": 1, "IsActive": true}
+{"SectionId": 3, "Code": "TREASURY", "NameEn": "Treasury & Banks", "NameAr": "الخزائن والبنوك", "SortOrder": 2, "IsActive": true}
+{"SectionId": 4, "Code": "CHECKS", "NameEn": "Checks", "NameAr": "الشيكات", "SortOrder": 3, "IsActive": true}
+{"SectionId": 5, "Code": "PROJECTS", "NameEn": "Projects & Contracts", "NameAr": "المشروعات والعقود", "SortOrder": 5, "IsActive": true}
+{"SectionId": 6, "Code": "PROCUREMENT", "NameEn": "Procurement & Inventory", "NameAr": "المشتريات والمخازن", "SortOrder": 6, "IsActive": true}
+{"SectionId": 7, "Code": "HR", "NameEn": "Human Resources", "NameAr": "الموارد البشرية", "SortOrder": 7, "IsActive": true}

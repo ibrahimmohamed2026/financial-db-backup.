@@ -1,0 +1,4 @@
+{"LineId": 1, "PurchaseOrderId": 1, "ItemId": 1, "Quantity": "1.000", "UnitPrice": "10.0000", "ReceivedQuantity": "1.000"}
+{"LineId": 2, "PurchaseOrderId": 2, "ItemId": 1, "Quantity": "45.000", "UnitPrice": "350.0000", "ReceivedQuantity": "45.000"}
+{"LineId": 3, "PurchaseOrderId": 3, "ItemId": 2, "Quantity": "25.000", "UnitPrice": "320.0000", "ReceivedQuantity": "25.000"}
+{"LineId": 4, "PurchaseOrderId": 4, "ItemId": 2, "Quantity": "500.000", "UnitPrice": "450.0000", "ReceivedQuantity": "500.000"}

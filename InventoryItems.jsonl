@@ -1,0 +1,2 @@
+{"ItemId": 1, "Code": "1", "Name": "محاسب", "Category": "ق", "Unit": "قطعة", "MinQuantity": "5.000", "IsActive": true, "CreatedAt": "2026-10-18T10:23:46.585548"}
+{"ItemId": 2, "Code": "250", "Name": "سولار", "Category": "جاز", "Unit": "لتر", "MinQuantity": "0.000", "IsActive": true, "CreatedAt": "2026-10-18T16:01:00.111369"}

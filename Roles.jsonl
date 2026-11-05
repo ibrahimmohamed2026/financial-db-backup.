@@ -1,0 +1,8 @@
+{"RoleId": 1, "RoleName": "Admin"}
+{"RoleId": 2, "RoleName": "Auditor"}
+{"RoleId": 3, "RoleName": "Accountant"}
+{"RoleId": 4, "RoleName": "Treasurer"}
+{"RoleId": 5, "RoleName": "Technical Office"}
+{"RoleId": 6, "RoleName": "Procurement"}
+{"RoleId": 7, "RoleName": "Store Keeper"}
+{"RoleId": 8, "RoleName": "HR"}

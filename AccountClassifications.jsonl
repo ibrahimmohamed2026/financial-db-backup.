@@ -1,0 +1,30 @@
+{"ClassificationId": 1, "NameAr": "اصول ثابتة بالصافي", "StatementType": "BalanceSheet"}
+{"ClassificationId": 2, "NameAr": "اصول غير ملموسه", "StatementType": "BalanceSheet"}
+{"ClassificationId": 3, "NameAr": "استثمارات مالية بالقيمة العادلة", "StatementType": "BalanceSheet"}
+{"ClassificationId": 4, "NameAr": "مخزون", "StatementType": "BalanceSheet"}
+{"ClassificationId": 5, "NameAr": "اعمال تحت التنفيذ", "StatementType": "BalanceSheet"}
+{"ClassificationId": 6, "NameAr": "نقدية بالصندوق و البنوك", "StatementType": "BalanceSheet"}
+{"ClassificationId": 7, "NameAr": "مدينون و ارصدة مدينة اخرى", "StatementType": "BalanceSheet"}
+{"ClassificationId": 8, "NameAr": "عملاء وأوراق قبض", "StatementType": "BalanceSheet"}
+{"ClassificationId": 9, "NameAr": "مدينون و ارصدة مدينة أخرى", "StatementType": "BalanceSheet"}
+{"ClassificationId": 10, "NameAr": "مستحق الى اطراف ذات علاقة", "StatementType": "IncomeStatement"}
+{"ClassificationId": 11, "NameAr": "دفعات مقدمه موردون و مقاولون", "StatementType": "BalanceSheet"}
+{"ClassificationId": 12, "NameAr": "اصول بحق الاستخدام", "StatementType": "BalanceSheet"}
+{"ClassificationId": 13, "NameAr": "موردون و اوراق دفع", "StatementType": "BalanceSheet"}
+{"ClassificationId": 14, "NameAr": "دائنون و ارصدة دائنة اخرى", "StatementType": "BalanceSheet"}
+{"ClassificationId": 15, "NameAr": "دائنون و ارصدة دائنة أخرى", "StatementType": "BalanceSheet"}
+{"ClassificationId": 16, "NameAr": "عملاء دفعات مقدمه", "StatementType": "BalanceSheet"}
+{"ClassificationId": 17, "NameAr": "احتياطي قانوني", "StatementType": "BalanceSheet"}
+{"ClassificationId": 18, "NameAr": "راس المال المصدر و المدفوع", "StatementType": "BalanceSheet"}
+{"ClassificationId": 19, "NameAr": "الارباح / الخسائر المرحلة", "StatementType": "BalanceSheet"}
+{"ClassificationId": 20, "NameAr": "التزامات ضريبيه مؤجله", "StatementType": "BalanceSheet"}
+{"ClassificationId": 21, "NameAr": "التزامات تاجير تمويلى", "StatementType": "BalanceSheet"}
+{"ClassificationId": 22, "NameAr": "مبيعات / إيرادات", "StatementType": "BalanceSheet"}
+{"ClassificationId": 23, "NameAr": "ارباح / خسائر استثمارات مالية بالقيمة العادلة", "StatementType": "BalanceSheet"}
+{"ClassificationId": 24, "NameAr": "فوائد دائنة", "StatementType": "BalanceSheet"}
+{"ClassificationId": 25, "NameAr": "خسائر فروق عمله", "StatementType": "BalanceSheet"}
+{"ClassificationId": 26, "NameAr": "مصروفات عمومية و ادارية", "StatementType": "BalanceSheet"}
+{"ClassificationId": 27, "NameAr": "مصروفات عمومية و إدارية", "StatementType": "BalanceSheet"}
+{"ClassificationId": 28, "NameAr": "اهلاك اصول", "StatementType": "BalanceSheet"}
+{"ClassificationId": 29, "NameAr": "تكلفة المبيعات", "StatementType": "BalanceSheet"}
+{"ClassificationId": 30, "NameAr": "فوائد التاجير التمويلى", "StatementType": "BalanceSheet"}

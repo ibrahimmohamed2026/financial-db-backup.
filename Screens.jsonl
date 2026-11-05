@@ -1,0 +1,31 @@
+{"ScreenId": 1, "SectionId": 1, "ScreenCode": "AuditLogs", "TitleEn": "Audit Logs", "TitleAr": "سجل المراجعة والنشاطات", "Route": "/audit-logs", "SortOrder": 20, "IsActive": true}
+{"ScreenId": 3, "SectionId": 2, "ScreenCode": "JournalBook", "TitleEn": "General Journal", "TitleAr": "دفتر اليومية", "Route": "/journal", "SortOrder": 1, "IsActive": true}
+{"ScreenId": 5, "SectionId": 2, "ScreenCode": "ChartOfAccounts", "TitleEn": "Chart of Accounts", "TitleAr": "شجرة الحسابات", "Route": "/accounts", "SortOrder": 3, "IsActive": true}
+{"ScreenId": 6, "SectionId": 2, "ScreenCode": "TrialBalance", "TitleEn": "Trial Balance", "TitleAr": "ميزان المراجعة", "Route": "/trial-balance", "SortOrder": 4, "IsActive": true}
+{"ScreenId": 7, "SectionId": 1, "ScreenCode": "BalanceSheet", "TitleEn": "Balance Sheet", "TitleAr": "قائمة المركز المالي", "Route": "/reports/balance-sheet", "SortOrder": 5, "IsActive": true}
+{"ScreenId": 8, "SectionId": 1, "ScreenCode": "IncomeStatement", "TitleEn": "Income Statement", "TitleAr": "قائمة الدخل", "Route": "/reports/income-statement", "SortOrder": 6, "IsActive": true}
+{"ScreenId": 9, "SectionId": 3, "ScreenCode": "CashAnalysis", "TitleEn": "Cash Analysis", "TitleAr": "تحليل النقدية", "Route": "/treasury/analysis", "SortOrder": 7, "IsActive": true}
+{"ScreenId": 10, "SectionId": 3, "ScreenCode": "BankCibEgp", "TitleEn": "CIB Bank - EGP", "TitleAr": "البنك التجاري جنيه مصري", "Route": "/treasury/cib-egp", "SortOrder": 8, "IsActive": true}
+{"ScreenId": 11, "SectionId": 4, "ScreenCode": "ChecksCib", "TitleEn": "CIB Checks", "TitleAr": "أرقام شيكات بنك CIB", "Route": "/checks/cib", "SortOrder": 9, "IsActive": true}
+{"ScreenId": 12, "SectionId": 3, "ScreenCode": "BankReconciliation", "TitleEn": "Bank Reconciliation", "TitleAr": "مذكرة تسوية البنك", "Route": "/treasury/reconciliation", "SortOrder": 10, "IsActive": true}
+{"ScreenId": 13, "SectionId": 3, "ScreenCode": "CashUsd", "TitleEn": "Cash - USD", "TitleAr": "خزينة دولار", "Route": "/treasury/cash-usd", "SortOrder": 11, "IsActive": true}
+{"ScreenId": 14, "SectionId": 3, "ScreenCode": "BankCairoEgp", "TitleEn": "Banque du Caire - EGP", "TitleAr": "بنك القاهرة جنيه مصري", "Route": "/treasury/cairo-egp", "SortOrder": 12, "IsActive": true}
+{"ScreenId": 15, "SectionId": 3, "ScreenCode": "BankHdbUsd", "TitleEn": "Real Estate Bank - USD", "TitleAr": "البنك العقاري المصري دولار", "Route": "/treasury/hdb-usd", "SortOrder": 13, "IsActive": true}
+{"ScreenId": 16, "SectionId": 3, "ScreenCode": "BankHdbEgp", "TitleEn": "Real Estate Bank - EGP", "TitleAr": "البنك العقاري جنيه مصري", "Route": "/treasury/hdb-egp", "SortOrder": 14, "IsActive": true}
+{"ScreenId": 17, "SectionId": 3, "ScreenCode": "BankCibUsd", "TitleEn": "CIB Bank - USD", "TitleAr": "البنك التجاري دولار", "Route": "/treasury/cib-usd", "SortOrder": 15, "IsActive": true}
+{"ScreenId": 18, "SectionId": 4, "ScreenCode": "ChecksCairoEgp", "TitleEn": "Banque du Caire Checks - EGP", "TitleAr": "أرقام شيكات بنك القاهرة جنيه", "Route": "/checks/cairo-egp", "SortOrder": 16, "IsActive": true}
+{"ScreenId": 19, "SectionId": 4, "ScreenCode": "ChecksCairoUsd", "TitleEn": "Banque du Caire Checks - USD", "TitleAr": "أرقام شيكات بنك القاهرة دولار", "Route": "/checks/cairo-usd", "SortOrder": 17, "IsActive": true}
+{"ScreenId": 20, "SectionId": 4, "ScreenCode": "FinancialChecks", "TitleEn": "Financial Checks Register", "TitleAr": "إدارة الشيكات المالية", "Route": "/checks/register", "SortOrder": 18, "IsActive": true}
+{"ScreenId": 4, "SectionId": 5, "ScreenCode": "CostCenters", "TitleEn": "Cost Centers", "TitleAr": "مراكز التكلفة والمشروعات", "Route": "/projects", "SortOrder": 1, "IsActive": true}
+{"ScreenId": 21, "SectionId": 5, "ScreenCode": "Contracts", "TitleEn": "Contracts & Technical Office", "TitleAr": "العقود والمكتب الفني", "Route": "/contracts", "SortOrder": 2, "IsActive": true}
+{"ScreenId": 22, "SectionId": 5, "ScreenCode": "ContractRequests", "TitleEn": "Contract Requests", "TitleAr": "طلبات التعاقد", "Route": "/contract-requests", "SortOrder": 3, "IsActive": true}
+{"ScreenId": 23, "SectionId": 5, "ScreenCode": "ContractSettlements", "TitleEn": "Contract Settlements", "TitleAr": "مستخلصات العملاء ومقاولي الباطن", "Route": "/settlements", "SortOrder": 4, "IsActive": true}
+{"ScreenId": 24, "SectionId": 6, "ScreenCode": "InventoryManagement", "TitleEn": "Inventory Management", "TitleAr": "إدارة المخزون", "Route": "/inventory", "SortOrder": 2, "IsActive": true}
+{"ScreenId": 25, "SectionId": 6, "ScreenCode": "PurchaseCycle", "TitleEn": "Purchase Cycle", "TitleAr": "دورة المشتريات", "Route": "/purchases", "SortOrder": 1, "IsActive": true}
+{"ScreenId": 26, "SectionId": 7, "ScreenCode": "HumanResources", "TitleEn": "Human Resources", "TitleAr": "الموارد البشرية", "Route": "/hr", "SortOrder": 1, "IsActive": true}
+{"ScreenId": 2, "SectionId": 1, "ScreenCode": "AnalyticsReports", "TitleEn": "Reports & Analytics", "TitleAr": "التقارير والرسوم البيانية", "Route": "/reports", "SortOrder": 30, "IsActive": true}
+{"ScreenId": 28, "SectionId": 2, "ScreenCode": "CustomerRegistry", "TitleEn": "Customers", "TitleAr": "العملاء", "Route": "/customers", "SortOrder": 26, "IsActive": true}
+{"ScreenId": 29, "SectionId": 2, "ScreenCode": "ContractorRegistry", "TitleEn": "Contractors", "TitleAr": "المقاولون", "Route": "/contractors", "SortOrder": 27, "IsActive": true}
+{"ScreenId": 30, "SectionId": 2, "ScreenCode": "SupplierRegistry", "TitleEn": "Suppliers", "TitleAr": "الموردون", "Route": "/suppliers", "SortOrder": 28, "IsActive": true}
+{"ScreenId": 27, "SectionId": 2, "ScreenCode": "Counterparties", "TitleEn": "Counterparties", "TitleAr": "المقاولون والموردون والعملاء", "Route": "/counterparties", "SortOrder": 26, "IsActive": true}
+{"ScreenId": 31, "SectionId": 3, "ScreenCode": "CashEgp", "TitleEn": "Cash - EGP", "TitleAr": "صندوق خزينة الجنيه المصري", "Route": "/treasury/cash-egp", "SortOrder": 12, "IsActive": true}
