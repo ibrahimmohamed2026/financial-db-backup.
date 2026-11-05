@@ -2,6 +2,9 @@ name: Validate backup for full restore (read only)
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/validate-restore.yml'
 
 permissions:
   contents: read
