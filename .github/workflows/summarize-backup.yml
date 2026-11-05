@@ -1,0 +1,102 @@
+name: Summarize backup structure (metadata only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out private backup repository
+        uses: actions/checkout@v4
+
+      - name: Count JSONL records and inspect schema names only
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, re, zipfile
+          from pathlib import Path
+
+          archive = Path("financial_system_manual_20261105_143000.zip")
+          MAX_ARCHIVE = 100_000_000
+          MAX_MEMBER = 50_000_000
+          MAX_ENTRIES = 5000
+
+          if not archive.is_file():
+              raise SystemExit("ERROR: backup ZIP not found")
+          if archive.stat().st_size > MAX_ARCHIVE:
+              raise SystemExit("STOP: archive exceeds inspection size limit")
+
+          with zipfile.ZipFile(archive) as z:
+              if z.testzip():
+                  raise SystemExit("ERROR: ZIP integrity check failed")
+              infos = z.infolist()
+              if len(infos) > MAX_ENTRIES:
+                  raise SystemExit("STOP: too many ZIP entries")
+              total = sum(x.file_size for x in infos)
+              if total > 2_000_000_000:
+                  raise SystemExit("STOP: uncompressed archive exceeds limit")
+
+              jsonl_count = 0
+              total_records = 0
+              for info in infos:
+                  name = info.filename
+                  if info.flag_bits & 1 or info.file_size > MAX_MEMBER:
+                      continue
+                  if not name.lower().endswith(".jsonl"):
+                      continue
+                  jsonl_count += 1
+                  count = 0
+                  keys = set()
+                  bad = 0
+                  with z.open(info) as stream:
+                      for raw in stream:
+                          if not raw.strip():
+                              continue
+                          try:
+                              obj = json.loads(raw)
+                              count += 1
+                              if isinstance(obj, dict):
+                                  keys.update(str(k) for k in obj.keys())
+                          except Exception:
+                              bad += 1
+                  total_records += count
+                  print(f"JSONL: {name} | records={count} | invalid_lines={bad}")
+                  print("  FIELD_NAMES_ONLY:", ", ".join(sorted(keys))[:2000])
+
+              print("JSONL_FILE_COUNT:", jsonl_count)
+              print("JSONL_TOTAL_RECORDS:", total_records)
+
+              for info in infos:
+                  if info.flag_bits & 1 or info.file_size > MAX_MEMBER:
+                      continue
+                  if not info.filename.lower().endswith((".sql", ".dump", ".pgsql")):
+                      continue
+                  raw = z.read(info)
+                  sql = raw.decode("utf-8", errors="ignore")
+                  tables = []
+                  for match in re.finditer(
+                      r"CREATE\\s+TABLE\\s+(?:IF\\s+NOT\\s+EXISTS\\s+)?(?:[`\"]?([A-Za-z_][\\w$]*)[`\"]?\\.)?[`\"]?([A-Za-z_][\\w$]*)[`\"]?\\s*\\((.*?)\\)\\s*;",
+                      sql, re.I | re.S
+                  ):
+                      table = match.group(2)
+                      body = match.group(3)
+                      cols = []
+                      for line in body.splitlines():
+                          line = line.strip().strip(",")
+                          m = re.match(r'^[`\"]?([A-Za-z_][\\w$]*)[`\"]?\\s+', line)
+                          if m and m.group(1).upper() not in {
+                              "CONSTRAINT", "PRIMARY", "FOREIGN", "UNIQUE", "CHECK"
+                          }:
+                              cols.append(m.group(1))
+                      tables.append((table, cols))
+                  if tables:
+                      print("SQL_SCHEMA_FILE:", info.filename)
+                      for table, cols in tables:
+                          print("  TABLE:", table, "| COLUMNS:", ", ".join(cols))
+          print("SUMMARY_COMPLETE: values and financial row contents were not printed.")
+          PY
